@@ -128,10 +128,13 @@ def cylarea(request):
     return render(request,'mathapp/math.html',context)
 ```
 ## SERVER SIDE PROCESSING:
-![alt text](S1.png)
+
+![alt text](S2.png)
+
 
 ## HOMEPAGE:
-![alt text](S2.png)
+
+![alt text](S1.png)
 
 ## RESULT:
 The program for performing server side processing is completed successfully.
