@@ -31,7 +31,8 @@ Publish the website in the given URL.
 
 ## PROGRAM :
 ```
-math.html
+Yuva.html
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,8 +41,9 @@ math.html
 <title>Area of Surface</title>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <style type="text/css">
-body {
-    background-color: lavender;
+body
+{
+    background-color: yellow(159, 223, 255);
 }
 .edge {
     width: 100%;
@@ -50,11 +52,11 @@ body {
 }
 .box {
     display: inline-block;
-    border: thick dashed rgb(123, 171, 239);
+    border: thick dashed rgb(14, 6, 239);
     width: 500px;
     min-height: 300px;
     font-size: 20px;
-    background-color: rgb(231, 239, 116);
+    background-color: rgb(122, 233, 196);
 }
 .formelt {
     color: black;
@@ -63,23 +65,23 @@ body {
     margin-bottom: 6px;
 }
 h1 {
-    color: black;
+    color: rgb(21, 32, 244);
     padding-top: 20px;
 }
 </style>
 </head>
-<body>
+<body style="background-color:lightblue;">
 <div class="edge">
     <div class="box">
-        <h1>Surfacearea of Right Cylinder</h1>
-        <h3>Charitha Kamireddy(212221040068)</h3>
+        <h1>SURFACE AREA OF CYLINDER</h1>
+        <h3>YUVASHREE S(21222304025)</h3>
         <form method="POST">
             {% csrf_token %}
             <div class="formelt">
-                Radius: <input type="text" name="radius" value="{{r}}">m<br/>
+                Radius: <input type="text" name="Radius" value="{{R}}">m<br/>
             </div>
             <div class="formelt">
-                Height: <input type="text" name="height" value="{{h}}">m<br/>
+                Height: <input type="text" name="Height" value="{{H}}">m<br/>
             </div>
             <div class="formelt">
                 <input type="submit" value="Calculate"><br/>
@@ -93,47 +95,43 @@ h1 {
 </body>
 </html>
 ```
-```
-Views.py
-from django.shortcuts import render
-def surfacearea(request):
-    context = {}
-    context['area'] = "0"
-    context['r'] = "0"
-    context['h'] = "0"
-    if request.method == 'POST':
-        print("POST method is used")
-        print('request.POST:', request.POST)
-        r = request.POST.get('radius', '0') 
-        h = request.POST.get('height', '0') 
-        print('radius =', r)
-        print('height =', h)
-        area = 2 * 3.14 * int(r) * int(h) + 2*3.14*int(r)*int(r)
-        context['area'] = area
-        context['r'] = r
-        context['h'] = h
-        print('Area =', area)
-    
-    return render(request, 'mathapp/math.html',context)
-```
-```
 urls.py
+```
 from django.contrib import admin
 from django.urls import path
 from mathapp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('surfacearea/',views.surfacearea,name="surfacearea"),
-    path('',views.surfacearea,name="surfcaearea")
-]
+    path('surfacearea/',views.cylarea,name="surfacearea"),
+    path('',views.cylarea,name="surfacearearoot")]
 ```
-
-
+views.py
+```
+from django.shortcuts import render
+def cylarea(request):
+    context={}
+    context['area'] = "0"
+    context['r'] = "0"
+    context['h'] = "0"
+    if request.method == 'POST':
+        print("POST method is used")
+        r = request.POST.get('Radius','0')
+        h = request.POST.get('Height','0')
+        print('request=',request)
+        print('Radius=',r)
+        print('Height=',h)
+        area = 2*3.14*int(r) + 2*3.14*int(h)
+        context['area'] = area
+        context['r'] = r
+        context['h'] = h
+        print('Area=',area)
+    return render(request,'mathapp/math.html',context)
+```
 ## SERVER SIDE PROCESSING:
-![alt text](<Screenshot (4).png>)
+![alt text](S1.png)
 
 ## HOMEPAGE:
-![alt text](<Screenshot (3).png>)
+![alt text](S2.png)
 
 ## RESULT:
 The program for performing server side processing is completed successfully.
