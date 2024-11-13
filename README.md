@@ -1,13 +1,19 @@
 # Ex.05 Design a Website for Server Side Processing
-## Date:02.04.24
+
+## Name:Ramya P
+## Date:12-11-24
+## Reg No:212223230168
+
 
 ## AIM:
-To design a website to find surface area of a Right Cylinder in server side.
+ To design a website to calculate the power of a lamp filament in an incandescent bulb in the server side. 
+
 
 ## FORMULA:
-Surface Area = 2Πrh + 2Πr<sup>2</sup>
-<br>r --> Radius of Right Cylinder
-<br>h --> Height of Right Cylinder
+P = I<sup>2</sup>R
+<br> P --> Power (in watts)
+<br> I --> Intensity
+<br> R --> Resistance
 
 ## DESIGN STEPS:
 
@@ -30,111 +36,74 @@ Create a HTML file to implement form based input and output.
 Publish the website in the given URL.
 
 ## PROGRAM :
-```
-Yuva.html
-
+html
+~~~
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset='utf-8'>
-<meta http-equiv='X-UA-Compatible' content='IE=edge'>
-<title>Area of Surface</title>
-<meta name='viewport' content='width=device-width, initial-scale=1'>
-<style type="text/css">
-body
-{
-    background-color: yellow(159, 223, 255);
-}
-.edge {
-    width: 100%;
-    padding-top: 250px;
-    text-align: center;
-}
-.box {
-    display: inline-block;
-    border: thick dashed rgb(14, 6, 239);
-    width: 500px;
-    min-height: 300px;
-    font-size: 20px;
-    background-color: rgb(122, 233, 196);
-}
-.formelt {
-    color: black;
-    text-align: center;
-    margin-top: 7px;
-    margin-bottom: 6px;
-}
-h1 {
-    color: rgb(21, 32, 244);
-    padding-top: 20px;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
-<body style="background-color:lightblue;">
-<div class="edge">
-    <div class="box">
-        <h1>SURFACE AREA OF CYLINDER</h1>
-        <h3>YUVASHREE S(21222304025)</h3>
-        <form method="POST">
-            {% csrf_token %}
-            <div class="formelt">
-                Radius: <input type="text" name="Radius" value="{{R}}">m<br/>
-            </div>
-            <div class="formelt">
-                Height: <input type="text" name="Height" value="{{H}}">m<br/>
-            </div>
-            <div class="formelt">
-                <input type="submit" value="Calculate"><br/>
-            </div>
-            <div class="formelt">
-                Area: <input type="text" name="area" value="{{area}}">m<sup>2</sup><br/>
-            </div>
-        </form>
-    </div>
-</div>
+<body>
+    <h1 align="center">Calculating Power of a Lamp</h1>
+    <form action="{% url 'Result' %}" method="post">
+        {% csrf_token %}
+       
+        <label for="">Intensity : </label>
+        <input type="text" name="intensity-input">
+
+        <br>
+
+        <label for="">Resistance : </label>
+        <input type="text" name="resistance-input">
+
+        <br>
+
+        <button type="submit">Calculate</button>
+
+    </form>  
 </body>
 </html>
-```
+~~~
+views.py
+~~~
+from django.shortcuts import render
+def home(request):
+    return render(request,'index.html')
+def Power(request):
+    if request.method == 'POST':
+        intensity_value = int(request.POST.get('intensity-input'))
+        resistance_value = int(request.POST.get('resistance-input'))
+        power = (intensity_value**2)*(resistance_value)
+        return render(request,'Result.html',{'output':power})
+~~~
 urls.py
-```
+
+~~~
 from django.contrib import admin
 from django.urls import path
-from mathapp import views
+from myapp import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('surfacearea/',views.cylarea,name="surfacearea"),
-    path('',views.cylarea,name="surfacearearoot")]
-```
-views.py
-```
-from django.shortcuts import render
-def cylarea(request):
-    context={}
-    context['area'] = "0"
-    context['r'] = "0"
-    context['h'] = "0"
-    if request.method == 'POST':
-        print("POST method is used")
-        r = request.POST.get('Radius','0')
-        h = request.POST.get('Height','0')
-        print('request=',request)
-        print('Radius=',r)
-        print('Height=',h)
-        area = 2*3.14*int(r) + 2*3.14*int(h)
-        context['area'] = area
-        context['r'] = r
-        context['h'] = h
-        print('Area=',area)
-    return render(request,'mathapp/math.html',context)
-```
+    path('',views.home,name='home'),
+    path('result',views.Power,name='Result')
+]
+~~~
 ## SERVER SIDE PROCESSING:
-
-![alt text](S2.png)
-
+![image](https://github.com/user-attachments/assets/a6e01949-392f-4cfd-8950-27e38f20ce41)
 
 ## HOMEPAGE:
+![image](https://github.com/user-attachments/assets/1fecd749-0ec9-40a0-b85e-6799475ded7e)
 
-![alt text](S1.png)
+![image](https://github.com/user-attachments/assets/df963a57-db1a-44bb-b50c-ace65800a4e7)
+
+
+
+
+
+
 
 ## RESULT:
 The program for performing server side processing is completed successfully.
